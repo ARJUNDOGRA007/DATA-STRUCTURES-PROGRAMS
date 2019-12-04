@@ -1,0 +1,165 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *llink;
+    struct node *rlink;
+   
+}*root=NULL,*ptr,*parent,*temp;
+
+
+void inorder(struct node *tree)
+{
+    if(tree!=NULL)
+    {
+        inorder(tree->llink);
+        printf(" %d ",tree->data);
+        inorder(tree->rlink);
+    }
+   
+}
+
+
+
+int lchild(struct node *tree)
+{
+    int ch;
+    printf("\nDo u want a left child of node %d  ",tree->data);
+    scanf("%d",&ch);
+    return (ch);
+   
+}
+
+int rchild(struct node *tree)
+{
+    int ch;
+    printf("\nDo u want a right child of node %d  ",tree->data);
+    scanf("%d",&ch);
+    return (ch);
+   
+}
+void create(struct node *tree)
+{
+    if(lchild(tree)==1)
+    {  
+        temp=(struct node *)malloc(sizeof(struct node));
+        printf("\nEnter the data \n");
+        scanf("%d",&temp->data);
+        tree->llink=temp;
+        create(temp);
+       
+    }
+    else
+    {
+        tree->llink=NULL;
+    }
+   
+    if(rchild(tree)==1)
+    {  
+        temp=(struct node *)malloc(sizeof(struct node));
+        printf("\nEnter the data \n");
+        scanf("%d",&temp->data);
+        tree->rlink=temp;
+        create(temp);
+       
+    }
+    else
+    {
+        tree->rlink=NULL;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void createbinary()
+{
+    temp=(struct node *)malloc(sizeof(struct node));
+    printf("\nEnter the number ");
+    scanf("%d",&temp->data);
+    temp->llink=NULL;
+    temp->rlink=NULL;
+   
+    if(root==NULL)
+    {
+        root=temp;
+    }
+    else
+    {
+       
+        ptr=root;
+        while(ptr!=NULL)
+        {
+            parent=ptr;
+           
+            if(ptr->data==temp->data)
+            {
+                printf("\nnode alrealdy exsists\n");
+                return;
+            }
+            else
+            {
+                if(ptr->data > temp->data)
+                ptr=ptr->llink;
+                else
+                ptr=ptr->rlink;
+            }
+        }
+       
+        if(parent->data >temp->data)
+        parent->llink=temp;
+        else
+        parent->rlink=temp;
+       
+    }
+   
+   
+}
+
+
+
+
+int main()
+{
+   int ch;
+   while(1)
+   {
+        printf("\nenter choice ");
+        scanf("%d",&ch);
+   
+        switch(ch)
+        {
+            case 1:
+                createbinary();
+                break;
+       
+       
+            case 2:
+                inorder(root);
+                break;
+               
+            case 3:
+                root=(struct node *)malloc(sizeof(struct node));
+                printf("\nenter the root element ");
+                scanf("%d",&root->data);
+                root->llink=NULL;
+                root->rlink=NULL;
+                create(root);
+                break;
+   
+        }  
+   }  
+   
+}
