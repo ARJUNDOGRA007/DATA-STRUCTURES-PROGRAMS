@@ -1,0 +1,112 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node* link;
+}*root=NULL,*temp=NULL,*ptr=NULL;
+
+void insert()
+{
+    int count=0,pos=-1;
+    temp=(struct node *)malloc(sizeof(struct node));
+    printf("\nenter the data : ");
+    scanf("%d",&temp->data);
+    temp->link=NULL;
+    
+    if(root==NULL)
+    root=temp;
+    else
+    {
+        printf("\nenter the position : ");
+        scanf("%d",&pos);
+        ptr=root;
+        while(ptr!=NULL)
+        {ptr=ptr->link;   count++;}
+        
+        if(pos<0)
+        {printf("\ninvalid position");return;}
+        else if(pos==1)
+        {
+            temp->link=root;
+            root=temp;
+            
+        }
+        else if(pos>1&&pos<=count)
+        {
+            ptr=root;
+            for(int i=1;i<pos;i++)
+            {
+                ptr=ptr->link;
+            }
+            
+            temp->link=ptr->link;
+            ptr->link=temp;
+            
+        }
+        else if(pos>count)
+        {
+            ptr=root;
+            while(ptr->link!=NULL)
+            {
+                ptr=ptr->link;
+            }
+            ptr->link=temp;
+            
+            
+        }
+        
+    }
+    
+}
+
+
+void display()
+{
+    if(root==NULL)
+    printf("\nlist is empty\n");
+    else
+    {
+        ptr=root;
+        
+        while(ptr!=NULL)
+        {
+            printf(" %d -->",ptr->data);
+            ptr=ptr->link;
+        }
+        
+        printf("\n");
+    }
+    
+    
+}
+
+
+
+
+
+int main()
+{
+    int ch;
+    while(1)
+    {
+        printf("\n enter choice ");
+        scanf("%d",&ch);
+        
+        switch(ch)
+        {
+            case 1: insert();break;
+            
+            case 2: display();break; 
+            
+            
+            default:printf("\ninvalid choice\n");
+            
+        }
+        
+        
+    }
+
+    return 0;
+}
